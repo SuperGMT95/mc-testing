@@ -1,0 +1,2831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoreMMC Hosting - Premium Game Hosting</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #070913;
+            --bg-card: rgba(13, 18, 36, 0.7);
+            --primary: #2563eb;
+            --primary-glow: rgba(37, 99, 235, 0.4);
+            --accent: #38bdf8;
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Ambient Background Glows */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(37,99,235,0.15) 0%, transparent 70%);
+            top: 10%;
+            left: -10%;
+            z-index: -1;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(56,189,248,0.1) 0%, transparent 70%);
+            top: 40%;
+            right: -10%;
+            z-index: -1;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* -------------------------------- NAVBAR -------------------------------- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background: rgba(7, 9, 19, 0.8);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo img {
+            height: 42px;
+            object-fit: contain;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            color: var(--text-main);
+        }
+
+        nav ul li a i {
+            font-size: 14px;
+            color: var(--accent);
+        }
+
+        .client-space-btn {
+            background: linear-gradient(135deg, var(--primary), #1d4ed8);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px var(--primary-glow);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .client-space-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6);
+        }
+
+        /* -------------------------------- HERO SECTION -------------------------------- */
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            padding: 80px 8% 120px 8%;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .hero-left h1 {
+            font-size: 64px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+        }
+
+        .hero-left h1 span {
+            color: transparent;
+            -webkit-text-stroke: 1px #fff;
+            background: linear-gradient(135deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .dynamic-txt {
+            color: var(--accent) !important;
+            -webkit-text-stroke: 0px !important;
+        }
+
+        .hero-left p {
+            color: var(--text-muted);
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            max-width: 540px;
+        }
+
+        .hero-btns {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 20px var(--primary-glow);
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.03);
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: var(--text-muted);
+        }
+
+        .sub-tag {
+            font-size: 13px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding-left: 5px;
+        }
+
+        /* Hero Right Features Grid */
+        .hero-right {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .mini-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .feat-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 24px;
+            border-radius: 12px;
+            backdrop-filter: blur(8px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feat-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s;
+        }
+
+        .feat-box:hover::before {
+            transform: translateX(100%);
+        }
+
+        .feat-box h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .feat-box h3 i {
+            color: var(--accent);
+            font-size: 16px;
+        }
+
+        .feat-box p {
+            color: var(--text-muted);
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        /* Ice block decoration element matching video vibe */
+        .ice-deco {
+            position: absolute;
+            bottom: -50px;
+            right: 10%;
+            opacity: 0.05;
+            font-size: 180px;
+            pointer-events: none;
+        }
+
+
+        /* -------------------------------- PARTNERS / BRANDS -------------------------------- */
+        .brands-section {
+            padding: 40px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+            opacity: 0.6;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: rgba(255,255,255,0.01);
+        }
+
+        .brands-section img {
+            height: 30px;
+            filter: grayscale(1) brightness(2);
+        }
+
+        <style>
+
+        /* -------------------------------- ADVANCED FEATURES -------------------------------- */
+        .section-wrapper {
+            padding: 100px 8%;
+        }
+
+        .tagline {
+            color: var(--primary);
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .section-title {
+            font-size: 38px;
+            font-weight: 800;
+            margin-bottom: 50px;
+        }
+
+        .section-title span {
+            color: var(--accent);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .advanced-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 30px;
+            border-radius: 16px;
+            transition: all 0.3s;
+        }
+
+        .advanced-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(56, 189, 248, 0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(37, 99, 235, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .advanced-card h4 {
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .advanced-card p {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* -------------------------------- PRICING PLANS -------------------------------- */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .price-card {
+            background: linear-gradient(145deg, rgba(15, 23, 42, 0.8), rgba(8, 12, 27, 0.9));
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px 30px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .price-card.premium-border {
+            border-color: var(--primary);
+            box-shadow: 0 0 25px rgba(37, 99, 235, 0.2);
+        }
+
+        .price-header h3 {
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .price-header p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .pricing-amount {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: baseline;
+        }
+
+        .pricing-amount span {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-left: 4px;
+        }
+
+        .price-features {
+            list-style: none;
+            margin-bottom: 35px;
+        }
+
+        .price-features li {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .price-features li i {
+            color: #10b981;
+            font-size: 14px;
+        }
+
+        .order-btn {
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            padding: 14px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .price-card.premium-border .order-btn {
+            background: var(--primary);
+            border: none;
+            box-shadow: 0 4px 15px var(--primary-glow);
+        }
+
+        .price-card.premium-border .order-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        .order-btn:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: var(--text-muted);
+        }
+
+        /* -------------------------------- FOOTER -------------------------------- */
+        footer {
+            background: #04060d;
+            padding: 80px 8% 30px 8%;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-desc p {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.6;
+            margin-top: 15px;
+            max-width: 300px;
+        }
+
+        .footer-links h5 {
+            font-size: 16px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links ul li a {
+            color: var(--text-muted);
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .footer-links ul li a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        /* Responsive Layout */
+        @media(max-width: 968px) {
+            header { padding: 20px 4%; }
+            nav { display: none; }
+            .hero-container { grid-template-columns: 1fr; padding: 60px 4%; }
+            .section-wrapper { padding: 60px 4%; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .hero-left h1 { font-size: 46px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- -------------------------------- NAVBAR -------------------------------- -->
+    <header>
+    <div class="logo" style="display: inline-flex; align-items: center; gap: 10px;">
+        
+        <!-- CoreMMC Hosting Logo Link Provided By User -->
+        <img src="https://i.ibb.co/KzF67sFZ/copilot-image-1761965106943.png" alt="CoreMMC Hosting">
+
+        <!-- Floating Cloud Sticker Added Perfectly on Left Side -->
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExa3hsYjkxc2QweGRzNnlydWpmZmJvczdyeTBqMHNkNWVjdTNucXFmMyZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/V4ErRLRQG2lfKOjIht/giphy.gif" 
+             style="width: 38px; height: auto; pointer-events: none; user-select: none; animation: navCloudFloat 3.5s ease-in-out infinite; filter: drop-shadow(0 4px 6px rgba(56, 189, 248, 0.2));" 
+             alt="Cloud Sticker">
+    </div>
+        <nav>
+            <ul>
+                <li><a href="#" class="active"><i class="fa-solid His fa-gamepad"></i> Games</a></li>
+                <li><a href="#"><i class="fa-solid fa-cloud"></i> Cloud</a></li>
+                <li><a href="#"><i class="fa-solid fa-server"></i> Dedicated</a></li>
+                <li><a href="#"><i class="fa-brands fa-discord"></i> Discord Bot</a></li>
+                <li><a href="#"><i class="fa-solid fa-globe"></i> WebHosting</a></li>
+                <li><a href="#"><i class="fa-solid fa-scale-balanced"></i> Legal</a></li>
+            </ul>
+        </nav>
+        <a href="#" class="client-space-btn">
+            <i class="fa-regular fa-user"></i> CLIENT SPACE
+        </a>
+          <!-- Floating Cloud Sticker Added Perfectly on Left Side -->
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExa3hsYjkxc2QweGRzNnlydWpmZmJvczdyeTBqMHNkNWVjdTNucXFmMyZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/V4ErRLRQG2lfKOjIht/giphy.gif" 
+             style="width: 38px; height: auto; pointer-events: none; user-select: none; animation: navCloudFloat 3.5s ease-in-out infinite; filter: drop-shadow(0 4px 6px rgba(56, 189, 248, 0.2));" 
+             alt="Cloud Sticker">
+
+    </header>
+    
+    <!-- ------------------------ PRICING PLANS SECTION ------------------------ -->
+   <style>
+    /* Section Core Setup & Theme Variables */
+    .coremmc-pricing-hub {
+        width: 100%;
+        background-color: #070913; /* Premium Dark Background Theme */
+        padding: 80px 6%;
+        box-sizing: border-box;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        color: #ffffff;
+        text-align: center;
+        position: relative;
+    }
+
+    /* Heading Text Styles */
+    .pricing-hub-title {
+        font-size: 36px !important;
+        font-weight: 800 !important;
+        margin-bottom: 10px !important;
+        color: #ffffff !important;
+    }
+    .pricing-hub-subtitle {
+        color: #64748b;
+        font-size: 16px;
+        margin-bottom: 40px;
+    }
+
+    /* ----------------------------------------------------
+       TOP ROW: GAME SELECTION NAVIGATION MENU (From Layout)
+       ---------------------------------------------------- */
+    .game-nav-bar {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(15, 23, 42, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 50px;
+        padding: 8px 16px;
+        margin-bottom: 60px;
+        position: relative;
+        gap: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Game Buttons Styling */
+    .game-nav-btn {
+        background: transparent;
+        border: none;
+        color: #94a3b8;
+        padding: 14px 32px;
+        font-size: 15px;
+        font-weight: 700;
+        border-radius: 40px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    /* Active State Glow for selected game item */
+    .game-nav-btn.active-game {
+        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+        color: #ffffff;
+        box-shadow: 0 4px 20px rgba(37, 99, 235, 0.4);
+    }
+
+    /* ----------------------------------------------------
+       PRICING ENGINE CARDS MATRIX GRID
+       ---------------------------------------------------- */
+    .plans-display-grid {
+        display: none; /* Controlled dynamically by script */
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    /* Toggle visibility class */
+    .plans-display-grid.active-grid {
+        display: grid;
+    }
+
+    /* Individual Server Card Template Layout */
+    .server-plan-card {
+        background: #0b0e1f;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        padding: 40px 30px;
+        text-align: left;
+        position: relative;
+        transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .server-plan-card:hover {
+        transform: translateY(-8px);
+        border-color: #2563eb;
+        box-shadow: 0 15px 40px rgba(37, 99, 235, 0.15);
+    }
+
+    /* Card Top Meta Tags Row */
+    .card-meta-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .plan-badge {
+        font-size: 11px;
+        font-weight: 800;
+        color: #38bdf8;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        background: rgba(56, 189, 248, 0.1);
+        padding: 4px 10px;
+        border-radius: 6px;
+    }
+
+    .location-tag {
+        font-size: 12px;
+        color: #64748b;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .plan-title {
+        font-size: 26px;
+        font-weight: 800;
+        margin: 0 0 10px 0;
+        color: #ffffff;
+    }
+
+    .plan-pricing {
+        font-size: 42px;
+        font-weight: 800;
+        margin-bottom: 25px;
+        color: #ffffff;
+    }
+
+    .plan-pricing span {
+        font-size: 15px;
+        color: #475569;
+        font-weight: 500;
+    }
+
+    /* Progress Performance Bar UI Layout (From Screenshots) */
+    .performance-bar-container {
+        margin-bottom: 25px;
+    }
+    .bar-label-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 13px;
+        color: #94a3b8;
+        margin-bottom: 6px;
+    }
+    .bar-label-row strong { color: #ffffff; }
+    .actual-progress-track {
+        width: 100%;
+        height: 6px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .filled-progress-node {
+        height: 100%;
+        background: linear-gradient(90deg, #2563eb, #38bdf8);
+        border-radius: 10px;
+    }
+
+    /* Features/Specs List UI Vector */
+    .plan-specs-list {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 35px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        padding-top: 25px;
+    }
+
+    .plan-specs-list li {
+        font-size: 14px;
+        color: #cbd5e1;
+        margin-bottom: 14px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    /* Custom Check Icon SVG alignment */
+    .plan-specs-list li svg {
+        width: 16px;
+        height: 16px;
+        color: #2563eb;
+        flex-shrink: 0;
+    }
+
+    /* Interactive Action Button for Checkout redirection */
+    .btn-plan-checkout {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: #ffffff;
+        width: 100%;
+        padding: 15px;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 15px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        display: block;
+        transition: all 0.2s ease;
+    }
+
+    .server-plan-card:hover .btn-plan-checkout {
+        background: #2563eb;
+        border-color: #2563eb;
+        box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+    }
+
+    /* Premium Special Highlight Customization (For Best Value Cards) */
+    .premium-highlight-card {
+        border-color: rgba(37, 99, 235, 0.3);
+        background: linear-gradient(180deg, #0f132a 0%, #0b0e1f 100%);
+    }
+
+    /* ----------------------------------------------------
+       STICKERS MASTER OVERLAY SYSTEM
+       ---------------------------------------------------- */
+    .menu-side-sticker {
+        position: absolute;
+        width: 38px;
+        height: auto;
+        pointer-events: none;
+        user-select: none;
+        animation: globalStickerFloat 3.8s ease-in-out infinite;
+    }
+
+    .stk-pos-left { left: -48px; top: 12px; }
+    .stk-pos-right { right: -48px; top: 12px; }
+
+    /* Continuous soft floating translation keyframes */
+    @keyframes globalStickerFloat {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-6px) rotate(-3deg); }
+    }
+
+    /* Framework Responsive Query Controller */
+    @media (max-width: 1024px) {
+        .plans-display-grid.active-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+        .plans-display-grid.active-grid { grid-template-columns: 1fr; }
+        .menu-side-sticker { display: none; } /* Adaptive cleanup for mobile layout ratios */
+        .game-nav-bar { flex-direction: column; border-radius: 20px; width: 100%; padding: 10px; box-sizing: border-box; }
+        .game-nav-btn { width: 100%; justify-content: center; }
+    }
+</style
+
+       <style>
+    /* Global Container Workspace */
+    .coremmc-pricing-hub {
+        width: 100%;
+        background-color: #070913; /* Deep Dark Space Space Canvas */
+        padding: 60px 5%;
+        box-sizing: border-box;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        color: #ffffff;
+        text-align: center;
+    }
+
+    /* ----------------------------------------------------
+       IMAGE 1 CONFIG: THE HORIZONTAL INTERACTIVE SUB-TABS
+       ---------------------------------------------------- */
+    .cpu-navigation-wrapper {
+        display: inline-flex;
+        background: rgba(13, 17, 39, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 14px;
+        padding: 6px;
+        gap: 8px;
+        margin-bottom: 50px;
+        position: relative;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .cpu-nav-btn {
+        background: transparent;
+        border: none;
+        color: #64748b;
+        padding: 12px 24px;
+        font-size: 14px;
+        font-weight: 700;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        white-space: nowrap;
+    }
+
+    .cpu-nav-btn:hover {
+        color: #ffffff;
+        background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* Active Highlight Engine Glow State */
+    .cpu-nav-btn.active-cpu-node {
+        background: #1e1b4b; /* Deep Premium Royal Indigo Tint */
+        color: #38bdf8;       /* Bright Neon Cyan Highlight */
+        border: 1px solid rgba(56, 189, 248, 0.15);
+        box-shadow: 0 4px 20px rgba(56, 189, 248, 0.08);
+    }
+
+    /* ----------------------------------------------------
+       IMAGE 2 CONFIG: HIGH PERFORMANCE PRICING CARDS
+       ---------------------------------------------------- */
+    .pricing-cards-matrix {
+        display: none; /* Regulated locally via dynamic state script toggles */
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    /* Activation class to render viewblock grid */
+    .pricing-cards-matrix.active-matrix {
+        display: grid;
+    }
+
+    .server-core-card {
+        background: rgba(11, 15, 33, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        border-radius: 18px;
+        padding: 35px 25px;
+        text-align: left;
+        position: relative;
+        transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .server-core-card:hover {
+        transform: translateY(-6px);
+        border-color: #2563eb;
+    }
+
+    /* Top Badges Meta Container Row */
+    .card-meta-flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+    }
+
+    .tier-pill-label {
+        font-size: 10px;
+        font-weight: 800;
+        color: #38bdf8;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        background: rgba(56, 189, 248, 0.08);
+        padding: 4px 10px;
+        border-radius: 6px;
+    }
+
+    .loc-node-tag {
+        font-size: 12px;
+        color: #475569;
+        font-weight: 600;
+    }
+
+    .plan-title-header {
+        font-size: 24px;
+        font-weight: 800;
+        margin: 0 0 10px 0;
+        color: #ffffff;
+    }
+
+    .price-value-row {
+        font-size: 38px;
+        font-weight: 800;
+        margin-bottom: 25px;
+        color: #ffffff;
+    }
+
+    .price-value-row span {
+        font-size: 14px;
+        color: #475569;
+        font-weight: 500;
+    }
+
+    /* Progress Infrastructure Track Slider Metrics */
+    .metrics-bar-block {
+        margin-bottom: 25px;
+    }
+
+    .metrics-header-meta {
+        display: flex;
+        justify-content: space-between;
+        font-size: 13px;
+        color: #94a3b8;
+        margin-bottom: 6px;
+    }
+
+    .metrics-header-meta strong { color: #ffffff; }
+
+    .track-bg-line {
+        width: 100%;
+        height: 6px;
+        background: rgba(255, 255, 255, 0.04);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .track-fill-node {
+        height: 100%;
+        background: linear-gradient(90deg, #2563eb, #06b6d4);
+        border-radius: 10px;
+    }
+
+    /* Features Layout */
+    .features-bullet-list {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 35px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        padding-top: 25px;
+    }
+
+    .features-bullet-list li {
+        font-size: 14px;
+        color: #cbd5e1;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .features-bullet-list li svg {
+        width: 15px;
+        height: 15px;
+        color: #2563eb;
+        flex-shrink: 0;
+    }
+
+    /* Interactive Gateway Link Buttons */
+    .btn-action-gateway {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        color: #ffffff;
+        width: 100%;
+        padding: 14px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 14px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        display: block;
+        transition: all 0.2s ease;
+    }
+
+    .server-core-card:hover .btn-action-gateway {
+        background: #2563eb;
+        border-color: #2563eb;
+        box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+    }
+
+    /* Dynamic Stickers Layout Elements */
+    .floating-nav-sticker {
+        position: absolute;
+        width: 32px;
+        height: auto;
+        pointer-events: none;
+        animation: smoothFloatSticker 3.4s ease-in-out infinite;
+    }
+    .stk-left-nav { left: -42px; top: 10px; }
+    .stk-right-nav { right: -42px; top: 10px; }
+
+    @keyframes smoothFloatSticker {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-5px) rotate(-2deg); }
+    }
+
+    /* Responsive View Engine Adaptability */
+    @media (max-width: 1024px) {
+        .pricing-cards-matrix.active-matrix { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+        .pricing-cards-matrix.active-matrix { grid-template-columns: 1fr; }
+        .cpu-navigation-wrapper { flex-direction: column; width: 100%; border-radius: 12px; }
+        .cpu-nav-btn { width: 100%; justify-content: center; }
+        .floating-nav-sticker { display: none; }
+    }
+</style>
+
+<div class="coremmc-pricing-hub">
+
+    <h2 class="pricing-hub-title">Choose Your Game Server Plan</h2>
+    <p class="pricing-hub-subtitle">Instant setup, enterprise security, and ultimate processing node performance.</p>
+
+    <div class="game-nav-bar">
+        
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExa3hsYjkxc2QweGRzNnlydWpmZmJvczdyeTBqMHNkNWVjdTNucXFmMyZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/V4ErRLRQG2lfKOjIht/giphy.gif" class="menu-side-sticker stk-pos-left" alt="cloud">
+
+        <button class="game-nav-btn active-game" onclick="toggleActivePlans('minecraft-package-grid', this)">
+            🎮 Minecraft Hosting
+        </button>
+        
+        <button class="game-nav-btn" onclick="toggleActivePlans('hytale-package-grid', this)">
+            ✨ Hytale Hosting
+        </button>
+
+        <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXVjMWptYmh5bm1xbmpuZGs1YmVubjFncXpvaDlzMjJrZDc1aW0ydCZlcD12MV9internalF9naWZfYnlfaWQmY3Q9cw/H1YGuEsxFy10JPPdah/giphy.gif" class="menu-side-sticker stk-pos-right" alt="star">
+    </div>
+
+    <div id="minecraft-package-grid" class="plans-display-grid active-grid">
+        
+        <div class="server-plan-card">
+            <div class="card-meta-row">
+                <span class="plan-badge">Iron Tier</span>
+                <span class="location-tag">🇮🇳 India</span>
+            </div>
+            <h3 class="plan-title">4GB Starter Spec</h3>
+            <div class="plan-pricing">$4.99 <span>/mo</span></div>
+            
+            <ul class="plan-specs-list">
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> Ryzen 9 7950X Extreme CPU Node</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> 50 GB NVMe Gen4 Storage Space</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> Unlimited Player Slot Engine</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> WarShield DDoS Filter Active</li>
+            </ul>
+            <a href="YOUR_MINECRAFT_LINK_1" class="btn-plan-checkout">Order Node Setup</a>
+        </div>
+
+        <div class="server-plan-card premium-highlight-card">
+            <div class="card-meta-row">
+                <span class="plan-badge" style="color:#2563eb; background:rgba(37,99,235,0.15);">Most Popular</span>
+                <span class="location-tag">🇮🇳 India</span>
+            </div>
+            <h3 class="plan-title">8GB Diamond Spec</h3>
+            <div class="plan-pricing">$9.99 <span>/mo</span></div>
+            
+            <ul class="plan-specs-list">
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> Ryzen 9 7950X Extreme CPU Node</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> 100 GB NVMe Gen4 Storage Space</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> Unlimited Player Slot Engine</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> WarShield DDoS Filter Active</li>
+            </ul>
+            <a href="YOUR_MINECRAFT_LINK_2" class="btn-plan-checkout" style="background:#2563eb; border-color:#2563eb;">Order Node Setup</a>
+        </div>
+
+        <div class="server-plan-card">
+            <div class="card-meta-row">
+                <span class="plan-badge">Netherite Tier</span>
+                <span class="location-tag">🇮🇳 India</span>
+            </div>
+            <h3 class="plan-title">16GB Bedrock Spec</h3>
+            <div class="plan-pricing">$19.99 <span>/mo</span></div>
+            
+
+            <ul class="plan-specs-list">
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> Ryzen 9 7950X Extreme CPU Node</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> 200 GB NVMe Gen4 Storage Space</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> Unlimited Player Slot Engine</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> WarShield DDoS Filter Active</li>
+            </ul>
+            <a href="YOUR_MINECRAFT_LINK_3" class="btn-plan-checkout">Order Node Setup</a>
+        </div>
+
+         <div class="server-plan-card">
+            <div class="card-meta-row">
+                <span class="plan-badge">Netherite Tier</span>
+                <span class="location-tag">🇮🇳 India</span>
+            </div>
+            <h3 class="plan-title">16GB Bedrock Spec</h3>
+            <div class="plan-pricing">$19.99 <span>/mo</span></div>
+            
+
+            <ul class="plan-specs-list">
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> Ryzen 9 7950X Extreme CPU Node</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> 200 GB NVMe Gen4 Storage Space</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> Unlimited Player Slot Engine</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> WarShield DDoS Filter Active</li>
+            </ul>
+            <a href="YOUR_MINECRAFT_LINK_3" class="btn-plan-checkout">Order Node Setup</a>
+        </div>
+
+         <div class="server-plan-card">
+            <div class="card-meta-row">
+                <span class="plan-badge">Netherite Tier</span>
+                <span class="location-tag">🇮🇳 India</span>
+            </div>
+            <h3 class="plan-title">16GB Bedrock Spec</h3>
+            <div class="plan-pricing">$19.99 <span>/mo</span></div>
+            
+
+            <ul class="plan-specs-list">
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> Ryzen 9 7950X Extreme CPU Node</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> 200 GB NVMe Gen4 Storage Space</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> Unlimited Player Slot Engine</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> WarShield DDoS Filter Active</li>
+            </ul>
+            <a href="YOUR_MINECRAFT_LINK_3" class="btn-plan-checkout">Order Node Setup</a>
+        </div>
+
+         <div class="server-plan-card">
+            <div class="card-meta-row">
+                <span class="plan-badge">Netherite Tier</span>
+                <span class="location-tag">🇮🇳 India</span>
+            </div>
+            <h3 class="plan-title">16GB Bedrock Spec</h3>
+            <div class="plan-pricing">$19.99 <span>/mo</span></div>
+            
+
+            <ul class="plan-specs-list">
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> Ryzen 9 7950X Extreme CPU Node</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> 200 GB NVMe Gen4 Storage Space</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> Unlimited Player Slot Engine</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> WarShield DDoS Filter Active</li>
+            </ul>
+            <a href="YOUR_MINECRAFT_LINK_3" class="btn-plan-checkout">Order Node Setup</a>
+        </div>
+
+         <div class="server-plan-card">
+            <div class="card-meta-row">
+                <span class="plan-badge">Netherite Tier</span>
+                <span class="location-tag">🇮🇳 India</span>
+            </div>
+            <h3 class="plan-title">16GB Bedrock Spec</h3>
+            <div class="plan-pricing">$19.99 <span>/mo</span></div>
+            
+
+            <ul class="plan-specs-list">
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> Ryzen 9 7950X Extreme CPU Node</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> 200 GB NVMe Gen4 Storage Space</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> Unlimited Player Slot Engine</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> WarShield DDoS Filter Active</li>
+            </ul>
+            <a href="YOUR_MINECRAFT_LINK_3" class="btn-plan-checkout">Order Node Setup</a>
+        </div>
+
+         <div class="server-plan-card">
+            <div class="card-meta-row">
+                <span class="plan-badge">Netherite Tier</span>
+                <span class="location-tag">🇮🇳 India</span>
+            </div>
+            <h3 class="plan-title">16GB Bedrock Spec</h3>
+            <div class="plan-pricing">$19.99 <span>/mo</span></div>
+            
+
+            <ul class="plan-specs-list">
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> Ryzen 9 7950X Extreme CPU Node</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> 200 GB NVMe Gen4 Storage Space</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> Unlimited Player Slot Engine</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> WarShield DDoS Filter Active</li>
+            </ul>
+            <a href="YOUR_MINECRAFT_LINK_3" class="btn-plan-checkout">Order Node Setup</a>
+        </div>
+
+    </div>
+
+    <div id="hytale-package-grid" class="plans-display-grid">
+        
+        <div class="server-plan-card">
+            <div class="card-meta-row">
+                <span class="plan-badge">Orbis Base</span>
+                <span class="location-tag">🇩🇪 Germany</span>
+            </div>
+            <h3 class="plan-title">Hytale 6GB Entry</h3>
+            <div class="plan-pricing">$6.99 <span>/mo</span></div>
+            
+            <div class="performance-bar-container">
+                <div class="bar-label-row"><span>System RAM</span><strong>6 GB DDR5</strong></div>
+                <div class="actual-progress-track"><div class="filled-progress-node" style="width: 30%;"></div></div>
+            </div>
+
+            <ul class="plan-specs-list">
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> Intel Core i9 14900K Spec Node</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> 60 GB Ultra NVMe SSD Allocation</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> Complete Modpack Compatibility</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> Instant Deployment Architecture</li>
+            </ul>
+            <a href="YOUR_HYTALE_LINK_1" class="btn-plan-checkout">Order Node Setup</a>
+        </div>
+
+        <div class="server-plan-card premium-highlight-card">
+            <div class="card-meta-row">
+                <span class="plan-badge" style="color:#2563eb; background:rgba(37,99,235,0.15);">Best Value</span>
+                <span class="location-tag">🇩🇪 Germany</span>
+            </div>
+            <h3 class="plan-title">Hytale 12GB Pro</h3>
+            <div class="plan-pricing">$13.99 <span>/mo</span></div>
+            
+            <div class="performance-bar-container">
+                <div class="bar-label-row"><span>System RAM</span><strong>12 GB DDR5</strong></div>
+                <div class="actual-progress-track"><div class="filled-progress-node" style="width: 60%;"></div></div>
+            </div>
+
+            <ul class="plan-specs-list">
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> Intel Core i9 14900K Spec Node</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> 120 GB Ultra NVMe SSD Allocation</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> Complete Modpack Compatibility</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> Instant Deployment Architecture</li>
+            </ul>
+            <a href="YOUR_HYTALE_LINK_2" class="btn-plan-checkout" style="background:#2563eb; border-color:#2563eb;">Order Node Setup</a>
+        </div>
+
+        <div class="server-plan-card">
+            <div class="card-meta-row">
+                <span class="plan-badge">Overlord Tier</span>
+                <span class="location-tag">🇩🇪 Germany</span>
+            </div>
+            <h3 class="plan-title">Hytale 24GB Beast</h3>
+            <div class="plan-pricing">$25.99 <span>/mo</span></div>
+            
+            <div class="performance-bar-container">
+                <div class="bar-label-row"><span>System RAM</span><strong>24 GB DDR5</strong></div>
+                <div class="actual-progress-track"><div class="filled-progress-node" style="width: 100%;"></div></div>
+            </div>
+
+            <ul class="plan-specs-list">
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> Intel Core i9 14900K Spec Node</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> 250 GB Ultra NVMe SSD Allocation</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> Complete Modpack Compatibility</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> Instant Deployment Architecture</li>
+            </ul>
+            <a href="YOUR_HYTALE_LINK_3" class="btn-plan-checkout">Order Node Setup</a>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    function toggleActivePlans(selectedGridId, clickTargetElement) {
+        // 1. Reset visibility mapping map arrays
+        const structuralGrids = document.querySelectorAll('.plans-display-grid');
+        structuralGrids.forEach(gridItem => {
+            gridItem.classList.remove('active-grid');
+        });
+
+        // 2. Wipe activation class configurations on tabs buttons
+        const systemNavButtons = document.querySelectorAll('.game-nav-btn');
+        systemNavButtons.forEach(buttonNode => {
+            buttonNode.classList.remove('active-game');
+        });
+
+        // 3. Mount target active grid layouts and active state vectors
+        document.getElementById(selectedGridId).classList.add('active-grid');
+        clickTargetElement.classList.add('active-game');
+    }
+</script>
+    <!-- =========================================================================
+     COREMMC HOSTING INTERACTIVE FAQ SECTION WITH EXACT IMAGE LINK
+     ========================================================================= -->
+<style>
+    /* Main FAQ Section Wrapper */
+    .faq-section-wrapper {
+        padding: 80px 8%;
+        background-color: #070913;
+        color: #ffffff;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    /* Core Layout: Left Image Area, Right Accordion Area */
+    .faq-grid-layout {
+        display: grid;
+        grid-template-columns: 0.8fr 1.2fr;
+        gap: 50px;
+        align-items: center;
+    }
+
+    /* Left Side Vector Illustration Container */
+    .faq-left-vector {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .faq-left-vector img {
+        width: 100%;
+        max-width: 380px;
+        height: auto;
+        animation: smoothFloatFAQ 4s ease-in-out infinite;
+    }
+
+    /* Right Side Heading Typography */
+    .faq-right-content .faq-header-block {
+        margin-bottom: 35px;
+    }
+
+    .faq-right-content .faq-header-block h2 {
+        font-size: 40px;
+        font-weight: 800;
+        margin: 0 0 10px 0;
+        letter-spacing: 0.5px;
+    }
+
+    .faq-right-content .faq-header-block h2 span {
+        color: #38bdf8;
+    }
+
+    .faq-right-content .faq-header-block p {
+        color: #94a3b8;
+        font-size: 15px;
+        margin: 0;
+    }
+
+    /* Accordion Main Structure */
+    .faq-accordion-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    /* Individual FAQ Item Style matching reference "Screenshot 2026-06-11 135152_2.png" */
+    .faq-item-block {
+        background: rgba(15, 23, 42, 0.35);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 12px;
+        overflow: hidden;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .faq-item-block:hover {
+        border-color: rgba(56, 189, 248, 0.3);
+    }
+
+    /* Active Open Accordion State styling */
+    .faq-item-block.active-faq {
+        border-color: rgba(37, 99, 235, 0.5);
+        background: rgba(15, 23, 42, 0.55);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Trigger Button Wrapper */
+    .faq-trigger-btn {
+        width: 100%;
+        background: transparent;
+        border: none;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        text-align: left;
+        color: #ffffff;
+        gap: 15px;
+    }
+
+    /* Left Row: Index number box + Title text */
+    .faq-title-row {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    /* Serial Number Badge Style */
+    .faq-index-badge {
+        font-family: monospace;
+        font-size: 14px;
+        font-weight: 700;
+        color: #2563eb;
+        background: rgba(37, 99, 235, 0.1);
+        border: 1px solid rgba(37, 99, 235, 0.2);
+        padding: 4px 8px;
+        border-radius: 6px;
+        min-width: 28px;
+        text-align: center;
+    }
+
+    .faq-trigger-btn h4 {
+        font-size: 16px;
+        font-weight: 600;
+        margin: 0;
+        letter-spacing: 0.3px;
+        transition: color 0.3s ease;
+    }
+
+    .faq-item-block.active-faq .faq-trigger-btn h4 {
+        color: #38bdf8;
+    }
+
+    /* Right Side Arrow Icon element */
+    .faq-arrow-icon {
+        color: #94a3b8;
+        font-size: 14px;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .faq-item-block.active-faq .faq-arrow-icon {
+        transform: rotate(90deg); /* Arrow rotates downwards when active */
+        color: #38bdf8;
+    }
+
+    /* Collapsible Content Area (Hidden by default with animation tracking) */
+    .faq-body-panel {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .faq-inner-text {
+        padding: 0 20px 20px 63px; /* Properly aligns answer text under the question */
+        color: #cbd5e1;
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    /* Soft floating animation loop */
+    @keyframes smoothFloatFAQ {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
+    }
+
+    /* Responsive Engine */
+    @media (max-width: 992px) {
+        .faq-grid-layout {
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+        .faq-left-vector {
+            order: -1; /* Puts image on top for mobile views */
+        }
+        .faq-left-vector img {
+            max-width: 280px;
+        }
+    }
+</style>
+
+<section class="faq-section-wrapper">
+    <div class="faq-grid-layout">
+        
+        <!-- Left Side: Custom Vector Artwork URL Provided -->
+        <div class="faq-left-vector">
+            <img src="https://votex-root.netlify.app/_next/image?url=%2Ffeature-9.webp&w=1920&q=75" alt="CoreMMC Help Support Vector">
+        </div>
+
+        <!-- Right Side: Interactive Content -->
+        <div class="faq-right-content">
+            <div class="faq-header-block">
+                <h2>Frequently Asked <span>Questions</span></h2>
+                <p>Find answers to common questions about our game server hosting services</p>
+            </div>
+
+            <div class="faq-accordion-container">
+
+                <!-- Question 01 -->
+                <div class="faq-item-block">
+                    <button class="faq-trigger-btn">
+                        <div class="faq-title-row">
+                            <span class="faq-index-badge">01</span>
+                            <h4>How do I get started with game server hosting?</h4>
+                        </div>
+                        <i class="fa-solid fa-chevron-right faq-arrow-icon"></i>
+                    </button>
+                    <div class="faq-body-panel">
+                        <div class="faq-inner-text">
+                            Getting started with CoreMMC Hosting is incredibly quick! Choose your preferred game server configuration or hosting plan from our pricing tables, complete the secure checkout process, and our automated provisioning system will instantly build and deploy your instance. You will receive an onboarding email containing access credentials to your dedicated game control panel immediately.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 02 -->
+                <div class="faq-item-block">
+                    <button class="faq-trigger-btn">
+                        <div class="faq-title-row">
+                            <span class="faq-index-badge">02</span>
+                            <h4>What kind of support do you provide?</h4>
+                        </div>
+                        <i class="fa-solid fa-chevron-right faq-arrow-icon"></i>
+                    </button>
+                    <div class="faq-body-panel">
+                        <div class="faq-inner-text">
+                            CoreMMC (Thakur MMC) Hosting delivers elite 24/7 technical assistance. Our specialized support crew is fully equipped to handle configuration bugs, server performance tune-ups, and deployment queries. You can easily reach out to us by opening a direct ticket inside our secure client portal dashboard or joining our active community Discord server for rapid assistance.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 03 -->
+                <div class="faq-item-block">
+                    <button class="faq-trigger-btn">
+                        <div class="faq-title-row">
+                            <span class="faq-index-badge">03</span>
+                            <h4>Can I modify server settings and configurations?</h4>
+                        </div>
+                        <i class="fa-solid fa-chevron-right faq-arrow-icon"></i>
+                    </button>
+                    <div class="faq-body-panel">
+                        <div class="faq-inner-text">
+                            Absolutely! You maintain 100% full root access and complete control file oversight through our custom management workspace panel. You are free to modify backend settings, install custom mods or plugins, handle sub-user permissions, upload directory files via secure SFTP, and customize the game dynamics exactly the way your community wants.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 04 -->
+                <div class="faq-item-block">
+                    <button class="faq-trigger-btn">
+                        <div class="faq-title-row">
+                            <span class="faq-index-badge">04</span>
+                            <h4>What payment methods do you accept?</h4>
+                        </div>
+                        <i class="fa-solid fa-chevron-right faq-arrow-icon"></i>
+                    </button>
+                    <div class="faq-body-panel">
+                        <div class="faq-inner-text">
+                            We accept an extensive range of reliable payment methods to keep your renewals completely frictionless. You can pay securely using all major Credit Cards, Debit Cards, PayPal, UPI, Net Banking, and regional localized gateways, providing you with a safe and encrypted transaction layer.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 05 -->
+                <div class="faq-item-block">
+                    <button class="faq-trigger-btn">
+                        <div class="faq-title-row">
+                            <span class="faq-index-badge">05</span>
+                            <h4>Do you offer DDoS protection?</h4>
+                        </div>
+                        <i class="fa-solid fa-chevron-right faq-arrow-icon"></i>
+                    </button>
+                    <div class="faq-body-panel">
+                        <div class="faq-inner-text">
+                            Yes, security is a core standard. Every node deployed under CoreMMC Hosting infrastructure comes integrated with advanced multi-layered enterprise DDoS mitigation filters. Our systems actively intercept, scan, and filter malicious traffic surges automatically before they ever hit your game instance, guaranteeing a persistent 99.9% uptime and zero server-side disruption.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- =========================================================================
+     JAVASCRIPT ACCORDION LOGIC ENGINE 
+     ========================================================================= -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const faqItems = document.querySelectorAll(".faq-item-block");
+
+        faqItems.forEach(item => {
+            const triggerBtn = item.querySelector(".faq-trigger-btn");
+            const bodyPanel = item.querySelector(".faq-body-panel");
+
+            triggerBtn.addEventListener("click", function () {
+                const isOpen = item.classList.contains("active-faq");
+
+                // Close all other open FAQ items first (Accordion Mode)
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove("active-faq");
+                        otherItem.querySelector(".faq-body-panel").style.maxHeight = null;
+                    }
+                });
+
+                // Toggle current item state
+                if (isOpen) {
+                    item.classList.remove("active-faq");
+                    bodyPanel.style.maxHeight = null;
+                } else {
+                    item.classList.add("active-faq");
+                    // Calculates dynamic inner content height for a beautiful fluid sliding animation
+                    bodyPanel.style.maxHeight = bodyPanel.scrollHeight + "px";
+                }
+            });
+        });
+    });
+</script>
+
+    <!-- =========================================================================
+     EXACT PREMIUM DISCORD BANNER SECTION WITH FLOATING MASCOTS
+     ========================================================================= -->
+<style>
+    /* Main Section Container spacing */
+    .discord-banner-wrapper {
+        padding: 40px 8%;
+        background-color: #070913;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    /* Core Banner Design Mapping reference "Screenshot 2026-06-11 132102.png" */
+    .discord-core-card {
+        position: relative;
+        width: 100%;
+        background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%) !important; /* Premium Blue Core Tone */
+        border-radius: 16px !important;
+        padding: 45px 50px !important;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        overflow: hidden;
+        z-index: 1;
+        text-decoration: none !important; /* Pure card clickable behavior setup */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 10px 30px rgba(29, 78, 216, 0.25);
+    }
+
+    .discord-core-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 15px 40px rgba(29, 78, 216, 0.4);
+    }
+
+    /* Left Side Elements Configuration */
+    .discord-left-layout {
+        display: flex;
+        align-items: flex-start;
+        gap: 25px;
+        max-width: 65%;
+        z-index: 3;
+    }
+
+    /* Left Floating Small Mascot */
+    .mascot-left-mini {
+        width: 75px;
+        height: auto;
+        object-fit: contain;
+        animation: miniFloat 3s ease-in-out infinite;
+        filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3));
+    }
+
+    /* Left Side Content Typography */
+    .discord-text-block h2 {
+        font-size: 42px !important;
+        font-weight: 800 !important;
+        color: #ffffff !important;
+        margin: 0 0 15px 0 !important;
+        letter-spacing: 0.5px;
+    }
+
+    .discord-text-block h2 span {
+        color: #38bdf8 !important; /* Cyan pop text style */
+    }
+
+    .discord-text-block p {
+        color: rgba(255, 255, 255, 0.85) !important;
+        font-size: 16px !important;
+        line-height: 1.5 !important;
+        margin: 0 0 6px 0 !important;
+        font-weight: 500;
+    }
+
+    .discord-text-block span.sub-info {
+        color: rgba(255, 255, 255, 0.65) !important;
+        font-size: 14px !important;
+        display: block;
+    }
+
+    /* Right Side Elements Configuration */
+    .discord-right-layout {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        z-index: 3;
+    }
+
+    /* Join Us Interactive Button Logo Badge */
+    .discord-join-badge {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        padding: 14px 24px;
+        border-radius: 12px;
+        transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .discord-join-badge img.discord-logo-vector {
+        width: 32px;
+        height: auto;
+    }
+
+    .discord-join-badge .badge-texts {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .discord-join-badge .badge-texts span:first-child {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .discord-join-badge .badge-texts span:last-child {
+        color: #ffffff;
+        font-size: 20px;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+    }
+
+    .discord-core-card:hover .discord-join-badge {
+        background: rgba(0, 0, 0, 0.35);
+        transform: scale(1.03);
+    }
+
+    /* Right Side Big Headphone Mascot */
+    .mascot-right-big {
+        width: 140px;
+        height: auto;
+        object-fit: contain;
+        margin-bottom: -45px; /* Cards line border cutting effect like reference */
+        align-self: flex-end;
+        animation: bigFloat 4s ease-in-out infinite;
+        filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+    }
+
+    /* Faded Watermark Logos scattered in background */
+    .discord-core-card::before {
+        content: '';
+        position: absolute;
+        top: 15px;
+        left: 20px;
+        width: 60px;
+        height: 60px;
+        background: url('https://i.ibb.co/B2Tg6dwy/photo-2026-06-11-13-42-40.jpg') no-repeat center/contain;
+        opacity: 0.08;
+        pointer-events: none;
+    }
+
+    .discord-core-card::after {
+        content: '';
+        position: absolute;
+        bottom: 15px;
+        left: 45%;
+        width: 70px;
+        height: 70px;
+        background: url('https://i.ibb.co/B2Tg6dwy/photo-2026-06-11-13-42-40.jpg') no-repeat center/contain;
+        opacity: 0.06;
+        pointer-events: none;
+    }
+
+    /* Animations Vectors Loops */
+    @keyframes miniFloat {
+        0% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-6px) rotate(3deg); }
+        100% { transform: translateY(0px) rotate(0deg); }
+    }
+
+    @keyframes bigFloat {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-8px); }
+        100% { transform: translateY(0px); }
+    }
+
+    /* Fully Responsive Optimization for Mobile viewports */
+    @media (max-width: 992px) {
+        .discord-core-card {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 35px;
+            padding: 40px 30px !important;
+        }
+        .discord-left-layout {
+            flex-direction: column;
+            align-items: center;
+            max-width: 100%;
+            gap: 15px;
+        }
+        .discord-right-layout {
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+        }
+        .mascot-right-big {
+            margin-bottom: -40px;
+            align-self: center;
+            width: 110px;
+        }
+    }
+</style>
+
+<!-- Functional DOM Grid Architecture Injection -->
+<section class="discord-banner-wrapper">
+    <a href="https://discord.gg/VFK39KWNC" target="_blank" class="discord-core-card">
+        
+        <!-- Left Section Panel -->
+        <div class="discord-left-layout">
+            <!-- First Mascot Image Link Applied to Left Side -->
+            <img src="https://i.ibb.co/4ny7LS0k/photo-2026-06-11-13-43-57.jpg" alt="Discord Small Mascot" class="mascot-left-mini">
+            
+            <div class="discord-text-block">
+                <h2>Join Our <span>Discord</span></h2>
+                <p>Connect with our community of gamers and developers</p>
+                <span class="sub-info">Get instant support, share experiences, and stay updated with the latest news</span>
+            </div>
+        </div>
+
+        <!-- Right Section Panel -->
+        <div class="discord-right-layout">
+            <!-- Center Vector Badge Integration Box -->
+            <div class="discord-join-badge">
+                <img src="https://i.ibb.co/B2Tg6dwy/photo-2026-06-11-13-42-40.jpg" alt="Discord Logo" class="discord-logo-vector">
+                <div class="badge-texts">
+                    <span>Join Us On</span>
+                    <span>DISCORD</span>
+                </div>
+            </div>
+
+            <!-- Third Headphone Mascot Image Link Applied to Right Bottom Side -->
+            <img src="https://i.ibb.co/sd32wMvg/photo-2026-06-11-13-46-39.jpg" alt="Discord Big Mascot" class="mascot-right-big">
+        </div>
+
+    </a>
+</section>
+        
+    <!-- -------------------------------- FOOTER -------------------------------- -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-desc">
+                <img src="https://i.ibb.co/KzF67sFZ/copilot-image-1761965106943.png" alt="CoreMMC Hosting" height="35">
+                <p>Premium hosting systems engineered with love for performance seekers and developers across the globe.</p>
+            </div>
+            <div class="footer-links">
+                <h5>Quick Links</h5>
+                <ul>
+                    <li><a href="#">Client Area</a></li>
+                    <li><a href="#">Discord Server</a></li>
+                    <li><a href="#">VPS Server Status</a></li>
+                    <li><a href="#">Game Server Hosting</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h5>Legal Links</h5>
+                <ul>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Refund Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h5>Contact Us</h5>
+                <ul style="color: var(--text-muted); font-size: 14px;">
+                    <li style="margin-bottom: 8px;"><i class="fa-solid fa-envelope" style="color: var(--accent);"></i> support@coremmc.com</li>
+                    <li><i class="fa-brands fa-discord" style="color: #5865F2;"></i> discord.gg/coremmc</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 CoreMMC Hosting. All rights reserved.</p>
+            <p>Designed with ❤️ for Gamers</p>
+        </div>
+    </footer>
+
+    <!-- Text Switcher Animation Script for Hero Section Text Changer -->
+    </script>
+    <!-- =========================================================================
+     PASTE THIS CODE JUST BEFORE YOUR CLOSING </body> TAG (BELOW OLD SCRIPT)
+     ========================================================================= -->
+
+/* =========================================================================
+   PERFECT TEXT SIZE & GRADIENT COLOR FIX 
+   ========================================================================= */
+
+/* 1. Base Heading (Host your own) ka size aur spacing fix */
+.hero-left h1 {
+    font-size: 76px !important; 
+    line-height: 1.15 !important;
+    font-weight: 800 !important;
+    margin-bottom: 24px !important;
+}
+
+/* 2. Dynamic Text ka Animation, Size aur original Colors Restoration */
+.dynamic-txt {
+    font-size: 76px !important; 
+    font-weight: 800 !important;
+    color: transparent !important; 
+    background: linear-gradient(135deg, #ffffff, var(--accent)) !important; 
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-stroke: 0px transparent !important; 
+    display: inline-block !important;
+}
+
+/* 3. Layout Wrapper Height Adjustments */
+.dynamic-wrapper {
+    height: 95px !important; 
+    display: block !important;
+    overflow: hidden !important;
+}
+
+/* 4. Responsive Support - Chhote Mobile screens */
+@media (max-width: 768px) {
+    .hero-left h1, .dynamic-txt {
+        font-size: 42px !important;
+    }
+    .dynamic-wrapper {
+        height: 55px !important;
+    }
+}
+</style>
+    </script>
+    <style>
+    /* Hero container ke background overlay ko ekdum smooth aur bright karne ke liye */
+    .hero-container::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        /* Kale rang ko kam kiya (0.85 se 0.45) taaki piche ki image saaf chamke */
+        background: linear-gradient(180deg, rgba(7, 9, 19, 0.45) 0%, rgba(7, 9, 19, 0.6) 100%) !important;
+        
+        /* Halka blur effect jaisa aapne bola */
+        backdrop-filter: blur(3px) !important; 
+        -webkit-backdrop-filter: blur(3px) !important;
+        
+        z-index: -1 !important;
+    }
+
+    /* Piche ki background image poori tarah se cover aur saaf dikhne ke liye */
+    .hero-container {
+        background-size: cover !important;
+        background-position: center center !important;
+        background-repeat: no-repeat !important;
+    }
+</script>
+<style>
+    /* Section Main Wrapper Configuration */
+    .features-section-fixed {
+        padding: 80px 8%;
+        background-color: #070913;
+        color: #ffffff;
+    }
+
+    /* Target Header Alignment */
+    .features-section-fixed .tagline {
+        color: #2563eb;
+        font-size: 14px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .features-section-fixed .section-title {
+        font-size: 38px;
+        font-weight: 800;
+        margin-bottom: 50px;
+    }
+
+    .features-section-fixed .section-title span {
+        color: #38bdf8;
+    }
+
+    /* GRID MATRIX: Strictly 3 cards in 1 single line row */
+    .features-grid-fixed {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 28px !important;
+    }
+
+    /* Premium Sleek Card Core Design */
+    .adv-card-premium {
+        position: relative;
+        background: linear-gradient(145deg, rgba(15, 23, 42, 0.4), rgba(8, 12, 27, 0.6)) !important;
+        border: 1px solid rgba(255, 255, 255, 0.06) !important;
+        padding: 35px 30px !important;
+        border-radius: 16px !important;
+        overflow: hidden; /* Latakte hue neon flower aur circles ko card me trim rakhne ke liye */
+        z-index: 1;
+        transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+    }
+
+    /* Premium Glow Border Hover Feedback */
+    .adv-card-premium:hover {
+        transform: translateY(-6px) !important;
+        border-color: rgba(56, 189, 248, 0.35) !important;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(37, 99, 235, 0.15) !important;
+    }
+
+    /* PREMIUM ACCENT LIGHT/FLOWER PATTERN (Top right latakta hua element) */
+    .adv-card-premium::before {
+        content: '';
+        position: absolute;
+        top: -20px;
+        right: -20px;
+        width: 90px;
+        height: 90px;
+        /* Sleek neon radial aura pattern replicating the reference picture flower burst */
+        background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, rgba(37, 99, 235, 0.1) 40%, transparent 70%);
+        border-radius: 50%;
+        filter: blur(5px);
+        pointer-events: none;
+        z-index: -1;
+        transition: transform 0.4s ease, background 0.4s ease;
+    }
+
+    /* Replicating the sharp hanging center node particle of the flower light flare */
+    .adv-card-premium::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 24px;
+        height: 24px;
+        background: linear-gradient(135deg, rgba(56, 189, 248, 0.4), transparent);
+        border-bottom-left-radius: 100%; /* Hanging curve corner style */
+        border-left: 1px solid rgba(56, 189, 248, 0.3);
+        border-bottom: 1px solid rgba(56, 189, 248, 0.3);
+        pointer-events: none;
+        z-index: 2;
+    }
+
+    /* Boost neon flower flare aura size on card mouse hover */
+    .adv-card-premium:hover::before {
+        transform: scale(1.3);
+        background: radial-gradient(circle, rgba(56, 189, 248, 0.4) 0%, rgba(37, 99, 235, 0.15) 50%, transparent 70%);
+    }
+
+    /* Inside Content Icons Grid Container styling */
+    .adv-card-premium .card-icon-fixed {
+        width: 52px;
+        height: 52px;
+        background: rgba(37, 99, 235, 0.12) !important;
+        border: 1px solid rgba(56, 189, 248, 0.15);
+        border-radius: 12px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        color: #38bdf8 !important; /* Premium Cyan */
+        font-size: 22px !important;
+        margin-bottom: 24px !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .adv-card-premium h4 {
+        font-size: 19px !important;
+        font-weight: 700 !important;
+        margin-bottom: 12px !important;
+        color: #ffffff !important;
+        letter-spacing: 0.3px;
+    }
+
+    .adv-card-premium p {
+        color: #94a3b8 !important; /* Muted silver gray text */
+        font-size: 14px !important;
+        line-height: 1.6 !important;
+    }
+
+    /* Fully Responsive View Adjustments */
+    @media (max-width: 1024px) {
+        .features-grid-fixed {
+            grid-template-columns: repeat(2, 1fr) !important; /* Tablets me 2 cards */
+        }
+    }
+
+    @media (max-width: 768px) {
+        .features-section-fixed {
+            padding: 50px 4%;
+        }
+        .features-grid-fixed {
+            grid-template-columns: 1fr !important; /* Mobiles me perfect 1 card layout vertical stacking */
+            gap: 20px !important;
+        }
+    }
+</style>
+    </div>
+</script>
+ <style>
+    /* 1. Main Pricing section ka background halka bright aur transparent kiya */
+    .pricing-section {
+        background-color: rgba(7, 9, 19, 0.75) !important;
+        backdrop-filter: blur(4px) !important;
+        -webkit-backdrop-filter: blur(4px) !important;
+    }
+
+    /* 2. Cards ke andar ka background aur glass look block kiya */
+    .price-card {
+        background-color: rgba(15, 23, 42, 0.35) !important; /* Kaala rang bohot kam kiya */
+        border: 1px solid rgba(255, 255, 255, 0.12) !important; /* Border thodi aur saaf dikhegi */
+        backdrop-filter: blur(6px) !important; /* Cards ke andar halka premium blur */
+        -webkit-backdrop-filter: blur(6px) !important;
+    }
+
+    /* 3. Card ke piche ki images ko 100% visible aur bright karne ke liye */
+    .price-card::before {
+        opacity: 0.55 !important; /* Image ki brightness badha di (pehle 0.25 thi) */
+        transition: opacity 0.3s ease !important;
+    }
+
+    /* Card par mouse le jaane par image aur zyada saaf chamkegi */
+    .price-card:hover::before {
+        opacity: 0.75 !important;
+    }
+
+    /* 4. Card ke andar ka jo kaala filter (gradient) tha use ekdum halka kiya */
+    .price-card::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        /* Sirf niche ki side halka dark tint taaki button aur text visible rahe */
+        background: linear-gradient(180deg, rgba(7, 9, 19, 0.1) 0%, rgba(7, 9, 19, 0.5) 100%) !important;
+        z-index: -1 !important;
+    }
+</style>
+ <!-- =========================================================================
+     COREMMC HOSTING - COMPLETE CENTERED HEADERS WITH FLOATING STICKERS
+     ========================================================================= -->
+
+<style>
+    /* =========================================================================
+       GLOBAL CSS STYLING ENGINE FOR HEADERS & STICKERS
+       ========================================================================= */
+
+    /* Main section container to enforce absolute alignment */
+    .custom-premium-header-section {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 50px 0;
+        background: transparent;
+        text-align: center;
+        box-sizing: border-box;
+    }
+
+    /* Flexbox wrapper keeping stickers and texts locked in perfect symmetry */
+    .premium-header-wrapper {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 35px; /* Distance between text and stickers */
+        max-width: 95%;
+    }
+
+    /* Central Text styling configuration */
+    .header-text-block {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    /* Small top taglines styling matching your design theme */
+    .premium-sub-tag {
+        color: #2563eb !important; /* Vibrant Blue color */
+        font-size: 13px !important;
+        font-weight: 700 !important;
+        letter-spacing: 2px !important;
+        text-transform: uppercase !important;
+        margin-bottom: 10px !important;
+        font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    /* Main Heading Title typography */
+    .premium-main-title {
+        font-size: 42px !important;
+        font-weight: 800 !important;
+        color: #ffffff !important;
+        margin: 0 !important;
+        line-height: 1.2 !important;
+        letter-spacing: -0.5px !important;
+        font-family: system-ui, -apple-system, sans-serif;
+        white-space: nowrap;
+    }
+
+    /* Sky Blue accent highlight color */
+    .premium-main-title span {
+        color: #38bdf8 !important;
+    }
+
+    /* Base properties for all stickers */
+    .header-sticker {
+        height: auto;
+        pointer-events: none;
+        user-select: none;
+        display: block;
+    }
+
+    /* Individual setup for Cloud Stickers (Left Side) */
+    .header-sticker.cloud-left {
+        width: 75px;
+        animation: premiumCloudWobble 4s ease-in-out infinite;
+        filter: drop-shadow(0 8px 16px rgba(56, 189, 248, 0.25));
+    }
+
+    /* Individual setup for Show Stars Stickers (Right Side) */
+    .header-sticker.show-right {
+        width: 70px;
+        animation: premiumStarFloat 3.5s ease-in-out infinite;
+        filter: drop-shadow(0 8px 16px rgba(37, 99, 235, 0.3));
+    }
+
+    /* =========================================================================
+       KINETIC ANIMATION KEYFRAMES (Khoob Acche Waale Animations)
+       ========================================================================= */
+
+    /* Smooth drifting floating motion for clouds */
+    @keyframes premiumCloudWobble {
+        0% {
+            transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+            transform: translateY(-12px) rotate(-3deg);
+        }
+        100% {
+            transform: translateY(0px) rotate(0deg);
+        }
+    }
+
+    /* Rhythmic pulse and lift motion for stars */
+    @keyframes premiumStarFloat {
+        0% {
+            transform: translateY(0px) scale(1);
+        }
+        50% {
+            transform: translateY(-15px) scale(1.06) rotate(6deg);
+        }
+        100% {
+            transform: translateY(0px) scale(1);
+        }
+    }
+
+    /* Responsive adjustment layer for mobile displays */
+    @media (max-width: 768px) {
+        .premium-header-wrapper {
+            gap: 15px;
+        }
+        .premium-main-title {
+            font-size: 28px !important;
+            white-space: normal !important; /* Wrap line smoothly on tiny screens */
+        }
+        .header-sticker.cloud-left {
+            width: 45px;
+        }
+        .header-sticker.show-right {
+            width: 42px;
+        }
+    }
+</style>
+</script>
+    <style>
+    /* Global resetting just to ensure layout precision */
+    .custom-premium-nav {
+        width: 100%;
+        background-color: #070913;
+        padding: 20px 8%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-sizing: border-box;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    /* ----------------------------------------------------
+       LEFT SIDE: LOGO TEXT WRAPPER + STICKER
+       ---------------------------------------------------- */
+    .nav-logo-block {
+        display: flex;
+        align-items: center;
+        gap: 12px; /* Space for the sticker */
+        text-decoration: none !important;
+        position: relative;
+    }
+
+    .nav-logo-text {
+        font-size: 26px !important;
+        font-weight: 800 !important;
+        color: #ffffff !important;
+        letter-spacing: -0.5px;
+        margin: 0 !important;
+    }
+
+    .nav-logo-text span {
+        color: #38bdf8 !important; /* Sky Blue accent color */
+    }
+
+    /* Logo Side: Cloud Sticker [2] Configuration */
+    .nav-logo-sticker {
+        width: 42px; /* Small clean navbar fit size */
+        height: auto;
+        pointer-events: none;
+        user-select: none;
+        animation: navStickerFloat 3s ease-in-out infinite;
+        filter: drop-shadow(0 4px 8px rgba(56, 189, 248, 0.25));
+    }
+
+    /* ----------------------------------------------------
+       RIGHT SIDE: CLIENT AREA BUTTON + STICKER
+       ---------------------------------------------------- */
+    .nav-right-block {
+        display: flex;
+        align-items: center;
+        gap: 15px; /* Distance between button and star sticker */
+        position: relative;
+    }
+
+    /* Premium Client Area Button Styling */
+    .nav-client-btn {
+        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+        color: #ffffff !important;
+        padding: 10px 22px !important;
+        border-radius: 8px !important;
+        font-size: 14px !important;
+        font-weight: 700 !important;
+        text-decoration: none !important;
+        letter-spacing: 0.5px;
+        box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
+        transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .nav-client-btn:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
+    }
+
+    /* Client Area Side: Show Star Sticker [1] Configuration */
+    .nav-client-sticker {
+        width: 38px; /* Perfectly scaled star badge */
+        height: auto;
+        pointer-events: none;
+        user-select: none;
+        animation: navStarWobble 3.5s ease-in-out infinite;
+        filter: drop-shadow(0 4px 10px rgba(37, 99, 235, 0.3));
+    }
+
+    /* ----------------------------------------------------
+       SMOOTH KINETIC ANIMATIONS FOR NAVBAR CONTEXT
+       ---------------------------------------------------- */
+    @keyframes navStickerFloat {
+        0% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-5px) rotate(-3deg); }
+        100% { transform: translateY(0px) rotate(0deg); }
+    }
+
+    @keyframes navStarWobble {
+        0% { transform: translateY(0px) scale(1); }
+        50% { transform: translateY(-6px) scale(1.05) rotate(5deg); }
+        100% { transform: translateY(0px) scale(1); }
+    }
+
+    /* Responsive scaling behavior for small screen devices */
+    @media (max-width: 600px) {
+        .custom-premium-nav {
+            padding: 15px 4%;
+        }
+        .nav-logo-text { font-size: 22px !important; }
+        .nav-logo-sticker { width: 32px; }
+        .nav-client-sticker { width: 28px; }
+        .nav-client-btn { padding: 8px 16px !important; font-size: 13px !important; }
+    }
+</style>
+
+    <!-- =========================================================================
+     MINECRAFT HERO SECTION WITH FLOATING CORNER CLOUD STICKERS
+     ========================================================================= -->
+
+<style>
+    /* Hero Section main wrapper */
+    .hero-premium-container {
+        width: 100%;
+        background: #0b0d19 url('YOUR_MINECRAFT_BACKGROUND_IMAGE_URL') no-repeat center center / cover;
+        padding: 80px 6%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 40px;
+        box-sizing: border-box;
+        font-family: system-ui, -apple-system, sans-serif;
+        color: #ffffff;
+        overflow: hidden;
+    }
+
+    /* Left Side Content Grid */
+    .hero-left-content {
+        max-width: 50%;
+    }
+
+    .hero-left-content span {
+        color: #94a3b8;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .hero-left-content h1 {
+        font-size: 54px !important;
+        font-weight: 800 !important;
+        color: #38bdf8 !important; /* Premium Minecraft Blue */
+        margin: 10px 0 20px 0 !important;
+    }
+
+    .hero-left-content p {
+        color: #cbd5e1;
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 30px;
+    }
+
+    /* Interactive Buttons Container */
+    .hero-btn-group {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    /* Get Started Button Wrapper for Stickers positioning */
+    .get-started-wrapper {
+        position: relative;
+        display: inline-block;
+    }
+
+    .btn-get-started {
+        background: #2563eb;
+        color: #ffffff;
+        padding: 14px 28px;
+        border-radius: 8px;
+        font-weight: 700;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 15px;
+    }
+
+    .btn-learn-more {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: #ffffff;
+        padding: 14px 28px;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 15px;
+    }
+
+    /* ----------------------------------------------------
+       RIGHT SIDE: 2x2 CARDS GRID LAYOUT
+       ---------------------------------------------------- */
+    .hero-cards-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+        max-width: 50%;
+    }
+
+    /* Main Feature Card configuration */
+    .feature-card {
+        background: rgba(15, 23, 42, 0.65);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(12px);
+        padding: 25px;
+        border-radius: 14px;
+        position: relative; /* Fixed point for absolute stickers */
+    }
+
+    .card-header-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+    }
+
+    .card-header-row h3 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .card-icon {
+        color: #38bdf8;
+        font-size: 18px;
+    }
+
+    .feature-card p {
+        margin: 0;
+        color: #94a3b8;
+        font-size: 13.5px;
+        line-height: 1.5;
+    }
+
+    /* ----------------------------------------------------
+       STICKERS MASTER ENGINE (POSITIONING ON RED MARKS)
+       ---------------------------------------------------- */
+    .cloud-sticker {
+        position: absolute;
+        width: 40px; /* Perfectly scaled sticker size */
+        height: auto;
+        pointer-events: none;
+        user-select: none;
+        z-index: 10;
+        filter: drop-shadow(0 4px 10px rgba(56, 189, 248, 0.25));
+    }
+
+    /* Animation assignments for realistic asynchronous movement */
+    .anim-type-a { animation: stickerFloatA 4s ease-in-out infinite; }
+    .anim-type-b { animation: stickerFloatB 3.5s ease-in-out infinite; }
+
+    /* Left Side: Button Red Marks */
+    .stk-btn-top-left { top: -22px; left: -22px; width: 35px; }
+    .stk-btn-bottom-right { bottom: -22px; right: -2px; width: 35px; }
+
+    /* Right Side: Cards Red Marks */
+    .stk-top-left { top: -18px; left: -18px; }
+    .stk-top-right { top: -18px; right: -18px; }
+    .stk-bottom-left { bottom: -18px; left: -18px; }
+    .stk-bottom-right { bottom: -18px; right: -18px; }
+
+    /* ----------------------------------------------------
+       SMOOTH NATURAL FLOATING KEYFRAMES
+       ---------------------------------------------------- */
+    @keyframes stickerFloatA {
+        0% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-6px) rotate(-3deg); }
+        100% { transform: translateY(0px) rotate(0deg); }
+    }
+
+    @keyframes stickerFloatB {
+        0% { transform: translateY(0px) scale(1); }
+        50% { transform: translateY(-5px) scale(1.05) rotate(4deg); }
+        100% { transform: translateY(0px) scale(1); }
+    }
+
+    /* Responsive Support Matrix */
+    @media (max-width: 1024px) {
+        .hero-premium-container { flex-direction: column; padding: 60px 4%; }
+        .hero-left-content { max-width: 100%; text-align: center; }
+        .hero-btn-group { justify-content: center; }
+        .hero-cards-grid { max-width: 100%; width: 100%; }
+        .cloud-sticker { width: 32px; }
+    }
+    @media (max-width: 640px) {
+        .hero-cards-grid { grid-template-columns: 1fr; }
+        .hero-left-content h1 { font-size: 36px !important; }
+    }
+</style>
+    <!-- =========================================================================
+     MINECRAFT/WEB HOSTING HERO SECTION WITH INFINITE MOVING LOGO SLIDER
+     ========================================================================= -->
+
+<style>
+    /* Hero Section Background & Layout Configuration */
+    .hero-premium-container {
+        width: 100%;
+        background-color: #070913; /* Deep premium dark canvas */
+        padding: 80px 6% 40px 6%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 40px;
+        box-sizing: border-box;
+        font-family: system-ui, -apple-system, sans-serif;
+        color: #ffffff;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Left Content Typography Map */
+    .hero-left-content {
+        max-width: 50%;
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero-left-content h1 {
+        font-size: 52px !important;
+        font-weight: 800 !important;
+        color: #ffffff !important;
+        line-height: 1.1 !important;
+        margin: 0 0 20px 0 !important;
+        letter-spacing: -1px;
+    }
+
+    .hero-left-content h1 span {
+        color: #38bdf8 !important; /* Premium Cyan Accent */
+        display: block;
+    }
+
+    .hero-left-content p {
+        color: #94a3b8;
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 35px;
+        max-width: 90%;
+    }
+
+    /* Button Interfaces */
+    .hero-btn-group {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .get-started-wrapper {
+        position: relative;
+        display: inline-block;
+    }
+
+    .btn-get-started {
+        background: #2563eb;
+        color: #ffffff;
+        padding: 14px 28px;
+        border-radius: 8px;
+        font-weight: 700;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 15px;
+        transition: background 0.2s ease;
+    }
+
+    .btn-get-started:hover { background: #1d4ed8; }
+
+    .btn-learn-more {
+        color: #ffffff;
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 15px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    /* Right Grid: 2x2 Feature Layout */
+    .hero-cards-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        max-width: 48%;
+        position: relative;
+        z-index: 2;
+    }
+
+    .feature-card {
+        background: rgba(13, 16, 33, 0.45);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(16px);
+        padding: 24px;
+        border-radius: 12px;
+        position: relative;
+    }
+
+    .card-header-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .card-header-row h3 {
+        margin: 0;
+        font-size: 17px;
+        font-weight: 700;
+        color: #ffffff;
+    }
+
+    .card-icon { color: #2563eb; font-size: 18px; }
+    .feature-card p { margin: 0; color: #64748b; font-size: 13px; line-height: 1.5; }
+
+    /* Corner Dynamic Stickers Engine */
+    .cloud-sticker {
+        position: absolute;
+        width: 38px;
+        height: auto;
+        pointer-events: none;
+        z-index: 10;
+        filter: drop-shadow(0 4px 8px rgba(56, 189, 248, 0.2));
+    }
+
+    .anim-float-v1 { animation: stickerFloat1 3.8s ease-in-out infinite; }
+    .anim-float-v2 { animation: stickerFloat2 3.2s ease-in-out infinite; }
+
+    .stk-btn-tl { top: -20px; left: -20px; width: 32px; }
+    .stk-btn-br { bottom: -20px; right: -5px; width: 32px; }
+    .stk-tl { top: -16px; left: -16px; }
+    .stk-br { bottom: -16px; right: -16px; }
+
+    @keyframes stickerFloat1 {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-5px) rotate(-2deg); }
+    }
+    @keyframes stickerFloat2 {
+        0%, 100% { transform: translateY(0px) scale(1); }
+        50% { transform: translateY(-4px) scale(1.04) rotate(3deg); }
+    }
+
+    /* ----------------------------------------------------
+       INFINITE LOOPING LOGO SLIDER SYSTEM (As seen in video)
+       ---------------------------------------------------- */
+    .partner-slider-section {
+        width: 100%;
+        background-color: #070913;
+        padding: 30px 0 60px 0;
+        overflow: hidden; /* Extra layout blocks hide */
+        position: relative;
+    }
+
+    /* Fade track masks for premium gradient edges */
+    .partner-slider-section::before,
+    .partner-slider-section::after {
+        content: "";
+        height: 100%;
+        width: 150px;
+        position: absolute;
+        top: 0;
+        z-index: 3;
+        pointer-events: none;
+    }
+    .partner-slider-section::before { left: 0; background: linear-gradient(to right, #070913, transparent); }
+    .partner-slider-section::after { right: 0; background: linear-gradient(to left, #070913, transparent); }
+
+    .slider-infinite-track {
+        display: flex;
+        width: calc(250px * 14); /* Dynamic math sizing for seamless loop node */
+        animation: scrollInfiniteTrack 25s linear infinite;
+    }
+
+    .slider-item-logo {
+        width: 250px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .slider-item-logo img {
+        height: 32px; /* Perfect scale height for standard brand vectors */
+        width: auto;
+        opacity: 0.35;
+        transition: opacity 0.3s ease;
+        filter: grayscale(100%) brightness(200%);
+    }
+
+    .slider-item-logo img:hover {
+        opacity: 0.8;
+        filter: grayscale(0%) brightness(100%);
+    }
+
+    /* Keyframes calculation for non-stop translation ticker */
+    @keyframes scrollInfiniteTrack {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(calc(-250px * 7)); } /* Exactly half track shift */
+    }
+
+    /* Responsive Grid Engine Scaling */
+    @media (max-width: 1024px) {
+        .hero-premium-container { flex-direction: column; text-align: center; padding-top: 40px; }
+        .hero-left-content, .hero-cards-grid { max-width: 100%; }
+        .hero-btn-group { justify-content: center; }
+        .slider-item-logo { width: 180px; }
+        @keyframes scrollInfiniteTrack {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-180px * 7)); }
+        }
+    }
+    @media (max-width: 640px) {
+        .hero-cards-grid { grid-template-columns: 1fr; }
+        .hero-left-content h1 { font-size: 38px !important; }
+    }
+</style>
+</script>
+</body>
+</html>
